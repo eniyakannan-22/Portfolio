@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume | Eniya K - Instrumentation Engineer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #0a192f;
+            --secondary: #64ffda;
+            --accent: #112240;
+            --text: #ccd6f6;
+            --text-light: #8892b0;
+            --white: #e6f1ff;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--primary);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Navigation */
+        nav {
+            background-color: rgba(10, 25, 47, 0.9);
+            padding: 20px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(100, 255, 218, 0.1);
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--secondary);
+            text-decoration: none;
+        }
+        
+        .logo span {
+            color: var(--white);
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 40px;
+        }
+        
+        .nav-links a {
+            color: var(--text);
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+        
+        .nav-links a:hover {
+            color: var(--secondary);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--secondary);
+            transition: width 0.3s;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .nav-links a.active {
+            color: var(--secondary);
+        }
+        
+        .nav-links a.active::after {
+            width: 100%;
+        }
+        
+        .menu-btn {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--secondary);
+        }
+        
+        /* Page Header */
+        .page-header {
+            padding: 160px 0 60px;
+            text-align: center;
+            background-color: var(--accent);
+            margin-bottom: 40px;
+        }
+        
+        .page-header h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .page-header h1 span {
+            color: var(--secondary);
+        }
+        
+        .page-header p {
+            max-width: 700px;
+            margin: 0 auto;
+            font-size: 1.2rem;
+            color: var(--text-light);
+        }
+        
+        /* Resume Container */
+        .resume-container {
+            padding: 20px 0 80px;
+        }
+        
+        /* Resume Card */
+        .resume-card {
+            background-color: var(--accent);
+            border-radius: 10px;
+            padding: 40px;
+            border: 1px solid rgba(100, 255, 218, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            margin-bottom: 40px;
+        }
+        
+        /* Resume Header */
+        .resume-header {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid rgba(100, 255, 218, 0.1);
+        }
+        
+        .profile-img {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            border: 3px solid var(--secondary);
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+        
+        .profile-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .resume-info h2 {
+            font-size: 2.2rem;
+            margin-bottom: 8px;
+        }
+        
+        .resume-info .title {
+            font-size: 1.3rem;
+            color: var(--secondary);
+            font-weight: 500;
+            margin-bottom: 15px;
+        }
+        
+        .contact-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 10px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.95rem;
+            color: var(--text-light);
+        }
+        
+        .contact-item i {
+            color: var(--secondary);
+            font-size: 1rem;
+        }
+        
+        /* Resume Sections */
+        .resume-section {
+            margin-bottom: 40px;
+        }
+        
+        .section-title {
+            font-size: 1.8rem;
+            color: var(--secondary);
+            margin-bottom: 25px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background-color: var(--secondary);
+            bottom: -8px;
+            left: 0;
+        }
+        
+        /* Education Items */
+        .education-item, .certification-item, .project-item, .experience-item {
+            background-color: rgba(17, 34, 64, 0.8);
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 3px solid var(--secondary);
+            margin-bottom: 20px;
+            transition: transform 0.3s, border-color 0.3s;
+        }
+        
+        .education-item:hover, .certification-item:hover, .project-item:hover, .experience-item:hover {
+            transform: translateX(5px);
+            border-left-color: #fff;
+        }
+        
+        .item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 10px;
+        }
+        
+        .item-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .item-subtitle {
+            color: var(--secondary);
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+        
+        .item-date {
+            background-color: rgba(100, 255, 218, 0.1);
+            color: var(--secondary);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+        
+        .item-details {
+            color: var(--text-light);
+            line-height: 1.7;
+        }
+        
+        /* Skills Grid */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 15px;
+            margin-top: 10px;
+        }
+        
+        .skill-item {
+            background-color: rgba(17, 34, 64, 0.8);
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid rgba(100, 255, 218, 0.1);
+            transition: all 0.3s;
+        }
+        
+        .skill-item:hover {
+            border-color: var(--secondary);
+            transform: translateY(-5px);
+        }
+        
+        .skill-item h4 {
+            color: var(--secondary);
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+        
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        
+        .skill-tag {
+            background-color: rgba(100, 255, 218, 0.1);
+            color: var(--secondary);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+        
+        /* Action Buttons */
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(100, 255, 218, 0.1);
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 15px 35px;
+            border-radius: 4px;
+            font-weight: 500;
+            font-size: 1rem;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s;
+            min-width: 180px;
+            justify-content: center;
+        }
+        
+        .btn-primary {
+            background-color: transparent;
+            color: var(--secondary);
+            border: 1px solid var(--secondary);
+        }
+        
+        .btn-primary:hover {
+            background-color: rgba(100, 255, 218, 0.1);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(100, 255, 218, 0.2);
+        }
+        
+        .btn-secondary {
+            background-color: var(--secondary);
+            color: var(--primary);
+            border: 1px solid var(--secondary);
+        }
+        
+        .btn-secondary:hover {
+            background-color: #52d3b8;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(100, 255, 218, 0.3);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--accent);
+            padding: 60px 0 30px;
+            text-align: center;
+            margin-top: 60px;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary);
+            border-radius: 50%;
+            margin: 0 10px;
+            color: var(--secondary);
+            font-size: 1.2rem;
+            transition: all 0.3s;
+        }
+        
+        .social-links a:hover {
+            background-color: var(--secondary);
+            color: var(--primary);
+            transform: translateY(-5px);
+        }
+        
+        .copyright {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin-top: 30px;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .resume-header {
+                flex-direction: column;
+                text-align: center;
+                gap: 25px;
+            }
+            
+            .contact-info {
+                justify-content: center;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .menu-btn {
+                display: block;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background-color: var(--accent);
+                flex-direction: column;
+                align-items: center;
+                padding: 20px 0;
+                transform: translateY(-100%);
+                opacity: 0;
+                transition: all 0.3s;
+                border-top: 1px solid rgba(100, 255, 218, 0.1);
+            }
+            
+            .nav-links.active {
+                transform: translateY(0);
+                opacity: 1;
+            }
+            
+            .nav-links li {
+                margin: 15px 0;
+            }
+            
+            .page-header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .page-header {
+                padding: 140px 0 40px;
+            }
+            
+            .resume-card {
+                padding: 25px;
+            }
+            
+            .item-header {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .item-date {
+                align-self: flex-start;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 15px;
+            }
+            
+            .page-header h1 {
+                font-size: 2rem;
+            }
+            
+            .resume-info h2 {
+                font-size: 1.8rem;
+            }
+            
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .resume-card {
+                padding: 20px;
+            }
+        }
+        
+        /* Print Styles */
+        @media print {
+            nav, .action-buttons, footer {
+                display: none !important;
+            }
+            
+            .resume-card {
+                box-shadow: none !important;
+                border: 1px solid #ccc !important;
+                padding: 0 !important;
+            }
+            
+            body {
+                background-color: white !important;
+                color: black !important;
+            }
+            
+            .resume-container {
+                padding: 20px 0 !important;
+            }
+            
+            .page-header {
+                padding: 20px 0 !important;
+                background-color: white !important;
+            }
+            
+            .page-header h1 {
+                color: black !important;
+            }
+            
+            .page-header p {
+                color: #555 !important;
+            }
+            
+            .resume-header {
+                border-bottom: 2px solid #ccc !important;
+            }
+            
+            .resume-info .title {
+                color: #333 !important;
+            }
+            
+            .contact-item {
+                color: #555 !important;
+            }
+            
+            .section-title {
+                color: #333 !important;
+            }
+            
+            .section-title::after {
+                background-color: #333 !important;
+            }
+            
+            .item-subtitle {
+                color: #333 !important;
+            }
+            
+            .skill-tag {
+                border: 1px solid #ccc !important;
+                color: #333 !important;
+                background-color: #f5f5f5 !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="container nav-container">
+            <a href="index.html" class="logo">Eniya<span>K</span></a>
+            
+            <div class="menu-btn" id="menu-btn">
+                <i class="fas fa-bars"></i>
+            </div>
+            
+            <ul class="nav-links" id="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="resume.html" class="active">Resume</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="page-header">
+        <div class="container">
+            <h1>My <span>Resume</span></h1>
+            <p>Detailed professional resume showcasing my education, skills, certifications, and experience in instrumentation engineering and automation.</p>
+        </div>
+    </header>
+
+    <!-- Resume Container -->
+    <main class="resume-container">
+        <div class="container">
+            <!-- Resume Card -->
+            <div class="resume-card">
+                <!-- Header Section -->
+                <div class="resume-header">
+                    <div class="profile-img">
+                        <img src="https://ui-avatars.com/api/?name=Eniya+K&background=64ffda&color=0a192f&size=300&bold=true&format=svg" alt="Eniya K">
+                    </div>
+                    <div class="resume-info">
+                        <h2>Eniya K</h2>
+                        <div class="title">Instrumentation Engineer</div>
+                        <div class="contact-info">
+                            <div class="contact-item">
+                                <i class="fas fa-phone"></i>
+                                <span>7695884646</span>
+                            </div>
+                            <div class="contact-item">
+                                <i class="fas fa-envelope"></i>
+                                <span>eniyakannan7@gmail.com</span>
+                            </div>
+                            <div class="contact-item">
+                                <i class="fab fa-linkedin"></i>
+                                <span>linkedin.com/in/eniya-k-202429324</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Education Section -->
+                <div class="resume-section">
+                    <h3 class="section-title"><i class="fas fa-graduation-cap"></i> Education</h3>
+                    
+                    <div class="education-item">
+                        <div class="item-header">
+                            <div>
+                                <div class="item-title">Kongu Engineering College, Erode</div>
+                                <div class="item-subtitle">B.E Electronics & Instrumentation Engineering</div>
+                            </div>
+                            <div class="item-date">2023 – 2027</div>
+                        </div>
+                        <div class="item-details">CGPA: 7.41</div>
+                    </div>
+                    
+                    <div class="education-item">
+                        <div class="item-header">
+                            <div>
+                                <div class="item-title">Adharsh Vidhyalaya Matric Hr Sec School, Anthiyur</div>
+                                <div class="item-subtitle">Higher Secondary Certificate (HSC)</div>
+                            </div>
+                            <div class="item-date">2022 – 2023</div>
+                        </div>
+                        <div class="item-details">Percentage: 81%</div>
+                    </div>
+                    
+                    <div class="education-item">
+                        <div class="item-header">
+                            <div>
+                                <div class="item-title">Adharsh Vidhyalaya Matric Hr Sec School, Anthiyur</div>
+                                <div class="item-subtitle">Secondary School Leaving Certificate (SSLC)</div>
+                            </div>
+                            <div class="item-date">2020 – 2021</div>
+                        </div>
+                        <div class="item-details">Pass Percentage: Excellent</div>
+                    </div>
+                </div>
+
+                <!-- Skills Section -->
+                <div class="resume-section">
+                    <h3 class="section-title"><i class="fas fa-tools"></i> Skills & Expertise</h3>
+                    <div class="skills-grid">
+                        <div class="skill-item">
+                            <h4>Technical Skills</h4>
+                            <div class="skill-tags">
+                                <span class="skill-tag">Industrial Instrumentation</span>
+                                <span class="skill-tag">Process Control</span>
+                                <span class="skill-tag">Embedded IoT</span>
+                                <span class="skill-tag">MATLAB</span>
+                            </div>
+                        </div>
+                        
+                        <div class="skill-item">
+                            <h4>Tools & Technologies</h4>
+                            <div class="skill-tags">
+                                <span class="skill-tag">MATLAB/Simulink</span>
+                                <span class="skill-tag">Automation</span>
+                                <span class="skill-tag">Sensor Networks</span>
+                                <span class="skill-tag">Control Systems</span>
+                            </div>
+                        </div>
+                        
+                        <div class="skill-item">
+                            <h4>Soft Skills</h4>
+                            <div class="skill-tags">
+                                <span class="skill-tag">Communication</span>
+                                <span class="skill-tag">Leadership</span>
+                                <span class="skill-tag">Teamwork</span>
+                                <span class="skill-tag">Problem Solving</span>
+                            </div>
+                        </div>
+                        
+                        <div class="skill-item">
+                            <h4>Areas of Interest</h4>
+                            <div class="skill-tags">
+                                <span class="skill-tag">Industrial Automation</span>
+                                <span class="skill-tag">Smart Systems</span>
+                                <span class="skill-tag">Robotics</span>
+                                <span class="skill-tag">IoT Solutions</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Certifications Section -->
+                <div class="resume-section">
+                    <h3 class="section-title"><i class="fas fa-certificate"></i> Certifications</h3>
+                    
+                    <div class="certification-item">
+                        <div class="item-header">
+                            <div class="item-title">Sensors & Transducers using MATLAB</div>
+                        </div>
+                        <div class="item-details">Comprehensive course covering sensor principles, transducer technologies, and MATLAB applications in instrumentation.</div>
+                    </div>
+                    
+                    <div class="certification-item">
+                        <div class="item-header">
+                            <div class="item-title">Semi-Autonomous Robotics</div>
+                        </div>
+                        <div class="item-details">Training in robotics systems, control algorithms, and autonomous navigation principles.</div>
+                    </div>
+                </div>
+
+                <!-- Projects Section -->
+                <div class="resume-section">
+                    <h3 class="section-title"><i class="fas fa-project-diagram"></i> Projects</h3>
+                    
+                    <div class="project-item">
+                        <div class="item-header">
+                            <div class="item-title">Travel Blogging Platform</div>
+                        </div>
+                        <div class="item-details">
+                            A website for sharing travel experiences with visual content, user-friendly navigation, and community-building features. Developed using modern web technologies.
+                        </div>
+                    </div>
+                    
+                    <div class="project-item">
+                        <div class="item-header">
+                            <div class="item-title">Automatic Water Level Controller</div>
+                        </div>
+                        <div class="item-details">
+                            A device that manages water level in tanks and reservoirs by automatically turning pumps on/off. Ensures motors run only when necessary, optimizing energy consumption.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Experience Section -->
+                <div class="resume-section">
+                    <h3 class="section-title"><i class="fas fa-briefcase"></i> Training & Experience</h3>
+                    
+                    <div class="experience-item">
+                        <div class="item-header">
+                            <div>
+                                <div class="item-title">Texs Engineering, Coimbatore</div>
+                                <div class="item-subtitle">Implant Training</div>
+                            </div>
+                        </div>
+                        <div class="item-details">Hands-on experience with industrial instrumentation systems, calibration procedures, and process control applications.</div>
+                    </div>
+                    
+                    <div class="experience-item">
+                        <div class="item-header">
+                            <div>
+                                <div class="item-title">SS Papers, Namakkal</div>
+                                <div class="item-subtitle">Implant Training</div>
+                            </div>
+                        </div>
+                        <div class="item-details">Exposure to paper manufacturing processes, industrial automation systems, and quality control instrumentation.</div>
+                    </div>
+                    
+                    <div class="experience-item">
+                        <div class="item-header">
+                            <div>
+                                <div class="item-title">Additional Activities</div>
+                                <div class="item-subtitle">Club Involvement & Presentations</div>
+                            </div>
+                        </div>
+                        <div class="item-details">
+                            • Additional Treasurer in Mobile Application Development Club<br>
+                            • Presented paper on "Blue Eyes Technology" at SREC<br>
+                            • Presented paper on "IoT Based Smart Traffic Management" at KCT
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="action-buttons">
+                    <a href="Resumeport (1).pdf" download="Eniya_K_Resume.pdf" class="btn btn-primary" id="downloadBtn">
+                        <i class="fas fa-download"></i> Download PDF
+                    </a>
+                    <button onclick="window.print()" class="btn btn-secondary">
+                        <i class="fas fa-print"></i> Print Resume
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="social-links">
+                <a href="mailto:eniyakannan7@gmail.com"><i class="fas fa-envelope"></i></a>
+                <a href="https://www.linkedin.com/in/eniya-k-202429324" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                <a href="tel:+917695884646"><i class="fas fa-phone"></i></a>
+            </div>
+            
+            <p>© 2024 Eniya K. All rights reserved.</p>
+            <p class="copyright">Instrumentation Engineer | Automation Specialist | IoT Developer</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const menuBtn = document.getElementById('menu-btn');
+        const navLinks = document.getElementById('nav-links');
+        
+        menuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+        
+        // Close menu when clicking a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+        });
+        
+        // Enhanced download functionality
+        document.getElementById('downloadBtn').addEventListener('click', function(e) {
+            const fileName = this.getAttribute('download');
+            const fileUrl = this.getAttribute('href');
+            
+            console.log('Downloading resume: ' + fileName);
+            
+            // Check if file exists (optional)
+            fetch(fileUrl, { method: 'HEAD' })
+                .then(res => {
+                    if (!res.ok) {
+                        // If file doesn't exist, show alert but still try download
+                        console.warn('Resume file may not exist at: ' + fileUrl);
+                        // Don't prevent default - let browser handle it
+                    }
+                })
+                .catch(err => {
+                    console.error('Error checking file:', err);
+                    // Still try to download - the download attribute should work
+                });
+            
+            // Optional: Track download in analytics
+            // Example: ga('send', 'event', 'Resume', 'download', 'PDF');
+        });
+        
+        // Print functionality
+        document.querySelector('.btn-secondary').addEventListener('click', function() {
+            console.log('Printing resume...');
+            window.print();
+        });
+        
+        // Add active class to current page
+        document.addEventListener('DOMContentLoaded', () => {
+            const currentPage = window.location.pathname.split('/').pop();
+            const navLinks = document.querySelectorAll('.nav-links a');
+            
+            navLinks.forEach(link => {
+                const linkPage = link.getAttribute('href');
+                if (linkPage === currentPage) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

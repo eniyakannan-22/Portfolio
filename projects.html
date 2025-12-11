@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects | Eniya K - Instrumentation Engineer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #0a192f;
+            --secondary: #64ffda;
+            --accent: #112240;
+            --text: #ccd6f6;
+            --text-light: #8892b0;
+            --white: #e6f1ff;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--primary);
+            color: var(--text);
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Navigation */
+        nav {
+            background-color: rgba(10, 25, 47, 0.9);
+            padding: 20px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(100, 255, 218, 0.1);
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--secondary);
+            text-decoration: none;
+        }
+        
+        .logo span {
+            color: var(--white);
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 40px;
+        }
+        
+        .nav-links a {
+            color: var(--text);
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+        
+        .nav-links a:hover {
+            color: var(--secondary);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--secondary);
+            transition: width 0.3s;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .menu-btn {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--secondary);
+        }
+        
+        /* Page Header */
+        .page-header {
+            padding: 160px 0 80px;
+            text-align: center;
+            background-color: var(--accent);
+        }
+        
+        .page-header h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .page-header h1 span {
+            color: var(--secondary);
+        }
+        
+        .page-header p {
+            max-width: 700px;
+            margin: 0 auto;
+            font-size: 1.2rem;
+            color: var(--text-light);
+        }
+        
+        /* Page Content */
+        .page-content {
+            padding: 80px 0;
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 3px;
+            background-color: var(--secondary);
+            bottom: -10px;
+            left: 0;
+        }
+        
+        /* Projects Filter */
+        .projects-filter {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 50px;
+        }
+        
+        .filter-btn {
+            padding: 10px 25px;
+            background-color: transparent;
+            color: var(--text);
+            border: 1px solid var(--text-light);
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+        
+        .filter-btn:hover, .filter-btn.active {
+            background-color: var(--secondary);
+            color: var(--primary);
+            border-color: var(--secondary);
+        }
+        
+        /* Projects Grid */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 40px;
+        }
+        
+        .project-card {
+            background-color: var(--accent);
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid rgba(100, 255, 218, 0.1);
+            transition: all 0.3s;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--secondary);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .project-img {
+            height: 200px;
+            background-color: #0d274d;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--secondary);
+            font-size: 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .project-img::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, transparent, rgba(10, 25, 47, 0.7));
+        }
+        
+        .project-content {
+            padding: 30px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .project-content h3 {
+            font-size: 1.6rem;
+            margin-bottom: 15px;
+            color: var(--white);
+        }
+        
+        .project-content p {
+            color: var(--text-light);
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+        
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+        
+        .project-tag {
+            background-color: rgba(100, 255, 218, 0.1);
+            color: var(--secondary);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+        
+        .project-links {
+            display: flex;
+            gap: 15px;
+            margin-top: auto;
+        }
+        
+        .project-link {
+            padding: 8px 20px;
+            background-color: transparent;
+            color: var(--secondary);
+            border: 1px solid var(--secondary);
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .project-link:hover {
+            background-color: rgba(232, 242, 240, 0.82);
+            transform: translateY(-3px);
+        }
+        
+        /* Project Details Modal */
+        .project-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(10, 25, 47, 0.95);
+            z-index: 2000;
+            overflow-y: auto;
+            padding: 50px 0;
+        }
+        
+        .modal-content {
+            background-color: var(--accent);
+            max-width: 900px;
+            margin: 0 auto;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid var(--secondary);
+            position: relative;
+        }
+        
+        .modal-header {
+            padding: 30px 30px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+        
+        .modal-header h2 {
+            font-size: 2.2rem;
+            color: var(--secondary);
+            margin-bottom: 10px;
+        }
+        
+        .close-modal {
+            background: none;
+            border: none;
+            color: var(--text);
+            font-size: 2rem;
+            cursor: pointer;
+            transition: color 0.3s;
+            padding: 0;
+        }
+        
+        .close-modal:hover {
+            color: var(--secondary);
+        }
+        
+        .modal-body {
+            padding: 30px;
+        }
+        
+        .modal-img {
+            width: 100%;
+            height: 300px;
+            background-color: #0d274d;
+            margin-bottom: 30px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+            color: var(--secondary);
+        }
+        
+        .modal-section {
+            margin-bottom: 30px;
+        }
+        
+        .modal-section h3 {
+            font-size: 1.4rem;
+            color: var(--secondary);
+            margin-bottom: 15px;
+            border-bottom: 1px solid rgba(100, 255, 218, 0.2);
+            padding-bottom: 10px;
+        }
+        
+        .modal-section ul {
+            padding-left: 20px;
+            color: var(--text-light);
+        }
+        
+        .modal-section li {
+            margin-bottom: 10px;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--accent);
+            padding: 60px 0 30px;
+            text-align: center;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary);
+            border-radius: 50%;
+            margin: 0 10px;
+            color: var(--secondary);
+            font-size: 1.2rem;
+            transition: all 0.3s;
+        }
+        
+        .social-links a:hover {
+            background-color: var(--secondary);
+            color: var(--primary);
+            transform: translateY(-5px);
+        }
+        
+        .copyright {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin-top: 30px;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .projects-grid {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .menu-btn {
+                display: block;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background-color: var(--accent);
+                flex-direction: column;
+                align-items: center;
+                padding: 20px 0;
+                transform: translateY(-100%);
+                opacity: 0;
+                transition: all 0.3s;
+                border-top: 1px solid rgba(100, 255, 218, 0.1);
+            }
+            
+            .nav-links.active {
+                transform: translateY(0);
+                opacity: 1;
+            }
+            
+            .nav-links li {
+                margin: 15px 0;
+            }
+            
+            .page-header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .modal-content {
+                margin: 0 20px;
+            }
+            
+            .modal-header {
+                flex-direction: column;
+            }
+            
+            .close-modal {
+                align-self: flex-end;
+                margin-top: -20px;
+            }
+        }
+        
+        .highlight {
+            color: var(--secondary);
+            font-weight: 600;
+        }
+        
+        .coming-soon {
+            opacity: 0.8;
+        }
+        
+        .coming-soon .project-img {
+            opacity: 0.7;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="container nav-container">
+            <a href="index.html" class="logo">Eniya<span>K</span></a>
+            
+            <div class="menu-btn" id="menu-btn">
+                <i class="fas fa-bars"></i>
+            </div>
+            
+            <ul class="nav-links" id="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="projects.html" class="active">Projects</a></li>
+                <li><a href="resume.html">Resume</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="page-header">
+        <div class="container">
+            <h1>My <span>Projects</span></h1>
+            <p>Showcasing my technical projects in instrumentation, automation, IoT, and web development. Each project demonstrates practical applications of engineering principles.</p>
+        </div>
+    </header>
+
+    <!-- Page Content -->
+    <main class="page-content">
+        <div class="container">
+            <!-- Projects Filter -->
+            <div class="projects-filter">
+                <button class="filter-btn active" data-filter="all">All Projects</button>
+                <button class="filter-btn" data-filter="instrumentation">Instrumentation</button>
+                <button class="filter-btn" data-filter="iot">IoT & Automation</button>
+                <button class="filter-btn" data-filter="web">Web Development</button>
+                <button class="filter-btn" data-filter="academic">Academic</button>
+            </div>
+
+            <!-- Projects Grid -->
+            <div class="projects-grid">
+                <!-- Project 1: Automatic Water Level Controller -->
+                <div class="project-card" data-category="instrumentation iot automation">
+                    <div class="project-img">
+                        <i class="fas fa-tint"></i>
+                    </div>
+                    <div class="project-content">
+                        <h3>Automatic Water Level Controller</h3>
+                        <p>A device that manages water levels in tanks and reservoirs by automatically turning pumps on and off. Ensures motors only run when necessary, saving energy and preventing overflow.</p>
+                        <div class="project-tags">
+                            <span class="project-tag">Instrumentation</span>
+                            <span class="project-tag">Automation</span>
+                            <span class="project-tag">Control Systems</span>
+                            <span class="project-tag">Sensors</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="project-link view-details" data-project="water-level">
+                                <i class="fas fa-info-circle"></i> View Details
+                            </a>
+                            <a href="#" class="project-link">
+                                <i class="fas fa-code"></i> Code
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 2: Travel Blogging Platform -->
+                <div class="project-card" data-category="web">
+                    <div class="project-img">
+                        <i class="fas fa-globe-americas"></i>
+                    </div>
+                    <div class="project-content">
+                        <h3>Travel Blogging Platform</h3>
+                        <p>A website for sharing travel experiences with a focus on visual content, user-friendly navigation, and community-building features. Designed to connect travelers worldwide.</p>
+                        <div class="project-tags">
+                            <span class="project-tag">Web Development</span>
+                            <span class="project-tag">UI/UX Design</span>
+                            <span class="project-tag">Community Platform</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="project-link view-details" data-project="travel-blog">
+                                <i class="fas fa-info-circle"></i> View Details
+                            </a>
+                            <a href="#" class="project-link">
+                                <i class="fas fa-external-link-alt"></i> Live Demo
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 3: IoT Based Smart Traffic Management -->
+                <div class="project-card" data-category="iot academic">
+                    <div class="project-img">
+                        <i class="fas fa-traffic-light"></i>
+                    </div>
+                    <div class="project-content">
+                        <h3>IoT Based Smart Traffic Management</h3>
+                        <p>Paper presentation on using IoT sensors and automation for intelligent traffic control systems. Focuses on reducing congestion and improving urban mobility.</p>
+                        <div class="project-tags">
+                            <span class="project-tag">IoT</span>
+                            <span class="project-tag">Smart Cities</span>
+                            <span class="project-tag">Paper Presentation</span>
+                            <span class="project-tag">KCT</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="project-link view-details" data-project="iot-traffic">
+                                <i class="fas fa-info-circle"></i> View Details
+                            </a>
+                            <a href="#" class="project-link">
+                                <i class="fas fa-file-pdf"></i> View Paper
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 4: Blue Eyes Technology -->
+                <div class="project-card" data-category="academic">
+                    <div class="project-img">
+                        <i class="fas fa-eye"></i>
+                    </div>
+                    <div class="project-content">
+                        <h3>Blue Eyes Technology</h3>
+                        <p>Paper presentation on emotion-sensing technology that uses camera and microphone to identify user emotions and react accordingly. Presented at SREC.</p>
+                        <div class="project-tags">
+                            <span class="project-tag">Human-Computer Interaction</span>
+                            <span class="project-tag">Emotion Sensing</span>
+                            <span class="project-tag">Paper Presentation</span>
+                            <span class="project-tag">SREC</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="project-link view-details" data-project="blue-eyes">
+                                <i class="fas fa-info-circle"></i> View Details
+                            </a>
+                            <a href="#" class="project-link">
+                                <i class="fas fa-file-pdf"></i> View Paper
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 5: Sensors & Transducers with MATLAB -->
+                <div class="project-card" data-category="instrumentation academic">
+                    <div class="project-img">
+                        <i class="fas fa-wave-square"></i>
+                    </div>
+                    <div class="project-content">
+                        <h3>Sensors & Transducers with MATLAB</h3>
+                        <p>Certification course project involving simulation and analysis of various sensors and transducers using MATLAB for industrial applications.</p>
+                        <div class="project-tags">
+                            <span class="project-tag">MATLAB</span>
+                            <span class="project-tag">Sensors</span>
+                            <span class="project-tag">Transducers</span>
+                            <span class="project-tag">Simulation</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="project-link view-details" data-project="sensors-matlab">
+                                <i class="fas fa-info-circle"></i> View Details
+                            </a>
+                            <a href="#" class="project-link">
+                                <i class="fas fa-certificate"></i> Certificate
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 6: Coming Soon - Industrial Automation -->
+                <div class="project-card coming-soon" data-category="instrumentation automation">
+                    <div class="project-img">
+                        <i class="fas fa-industry"></i>
+                    </div>
+                    <div class="project-content">
+                        <h3>Industrial Process Automation</h3>
+                        <p>An ongoing project to develop a complete industrial automation system using PLC, SCADA, and IoT integration for real-time monitoring and control.</p>
+                        <div class="project-tags">
+                            <span class="project-tag">PLC</span>
+                            <span class="project-tag">SCADA</span>
+                            <span class="project-tag">Industrial IoT</span>
+                            <span class="project-tag">Coming Soon</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="project-link" style="opacity: 0.7;">
+                                <i class="fas fa-clock"></i> In Progress
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Project Details Modals -->
+    
+    <!-- Modal 1: Automatic Water Level Controller -->
+    <div id="modal-water-level" class="project-modal">
+        <div class="container">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div>
+                        <h2>Automatic Water Level Controller</h2>
+                        <p>Instrumentation & Automation Project</p>
+                    </div>
+                    <button class="close-modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-img">
+                        <i class="fas fa-tint"></i>
+                    </div>
+                    
+                    <div class="modal-section">
+                        <h3>Project Overview</h3>
+                        <p>This project involves designing and implementing an automatic water level control system for domestic and industrial applications. The system automatically controls the operation of water pumps based on the water level in overhead tanks or reservoirs.</p>
+                    </div>
+                    
+                    <div class="modal-section">
+                        <h3>Key Features</h3>
+                        <ul>
+                            <li>Automatic pump control based on water level</li>
+                            <li>Prevents dry running of motors (motor protection)</li>
+                            <li>Eliminates water overflow and wastage</li>
+                            <li>Energy efficient operation</li>
+                            <li>Visual and audible indicators for different water levels</li>
+                            <li>Manual override option</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="modal-section">
+                        <h3>Technical Specifications</h3>
+                        <ul>
+                            <li><span class="highlight">Sensors Used:</span> Float switches or conductive probes</li>
+                            <li><span class="highlight">Control Unit:</span> Relay-based logic controller</li>
+                            <li><span class="highlight">Power Supply:</span> 230V AC mains with step-down transformer</li>
+                            <li><span class="highlight">Indicator Lights:</span> LED indicators for different water levels</li>
+                            <li><span class="highlight">Protection:</span> Overload and short-circuit protection</li>
+                            <li><span class="highlight">Enclosure:</span> IP-rated waterproof enclosure</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="modal-section">
+                        <h3>How It Works</h3>
+                        <p>The system uses multiple sensors placed at different water levels in the tank. When water level drops below the minimum threshold, the controller activates the pump. When water reaches the maximum level, the controller turns off the pump automatically. Intermediate sensors provide indication of water levels.</p>
+                    </div>
+                    
+                    <div class="modal-section">
+                        <h3>Applications</h3>
+                        <ul>
+                            <li>Residential water tank management</li>
+                            <li>Industrial water reservoirs</li>
+                            <li>Agriculture irrigation systems</li>
+                            <li>Swimming pool water level control</li>
+                            <li>Boiler feed water control</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 2: Travel Blogging Platform -->
+    <div id="modal-travel-blog" class="project-modal">
+        <div class="container">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div>
+                        <h2>Travel Blogging Platform</h2>
+                        <p>Web Development Project</p>
+                    </div>
+                    <button class="close-modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-img">
+                        <i class="fas fa-globe-americas"></i>
+                    </div>
+                    
+                    <div class="modal-section">
+                        <h3>Project Overview</h3>
+                        <p>A comprehensive web platform designed for travel enthusiasts to share their experiences, photos, and tips. The platform emphasizes visual content, user engagement, and community building among travelers worldwide.</p>
+                    </div>
+                    
+                    <div class="modal-section">
+                        <h3>Key Features</h3>
+                        <ul>
+                            <li>User registration and profile management</li>
+                            <li>Travel blog creation with rich text editor</li>
+                            <li>Photo gallery and video integration</li>
+                            <li>Interactive map showing travel routes</li>
+                            <li>Rating and review system for destinations</li>
+                            <li>Social sharing capabilities</li>
+                            <li>Travel planning tools and itineraries</li>
+                            <li>Community forums and discussions</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="modal-section">
+                        <h3>Technology Stack</h3>
+                        <ul>
+                            <li><span class="highlight">Frontend:</span> HTML5, CSS3, JavaScript, React.js</li>
+                            <li><span class="highlight">Backend:</span> Node.js, Express.js</li>
+                            <li><span class="highlight">Database:</span> MongoDB with Mongoose ODM</li>
+                            <li><span class="highlight">Authentication:</span> JWT (JSON Web Tokens)</li>
+                            <li><span class="highlight">Storage:</span> Cloudinary for image/video storage</li>
+                            <li><span class="highlight">Maps:</span> Google Maps API integration</li>
+                            <li><span class="highlight">Hosting:</span> Heroku / AWS</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="modal-section">
+                        <h3>Design Principles</h3>
+                        <ul>
+                            <li>Mobile-first responsive design</li>
+                            <li>Intuitive user interface for all age groups</li>
+                            <li>Fast loading times optimized for images</li>
+                            <li>Accessibility considerations (WCAG guidelines)</li>
+                            <li>SEO optimized content structure</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="social-links">
+                <a href="mailto:eniyakannan7@gmail.com"><i class="fas fa-envelope"></i></a>
+                <a href="https://www.linkedin.com/in/eniya-k-202429324" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                <a href="tel:+917695884646"><i class="fas fa-phone"></i></a>
+            </div>
+            
+            <p>© 2024 Eniya K. All rights reserved.</p>
+            <p class="copyright">Instrumentation Engineer | Automation Specialist | IoT Developer</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const menuBtn = document.getElementById('menu-btn');
+        const navLinks = document.getElementById('nav-links');
+        
+        menuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+        
+        // Close menu when clicking a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+        });
+        
+        // Add active class to current page in navigation
+        document.addEventListener('DOMContentLoaded', () => {
+            const currentPage = window.location.pathname.split('/').pop();
+            const navLinks = document.querySelectorAll('.nav-links a');
+            
+            navLinks.forEach(link => {
+                const linkPage = link.getAttribute('href');
+                if (linkPage === currentPage) {
+                    link.classList.add('active');
+                }
+            });
+        });
+        
+        // Projects Filter Functionality
+        document.addEventListener('DOMContentLoaded', () => {
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const projectCards = document.querySelectorAll('.project-card');
+            
+            filterButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // Remove active class from all buttons
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    // Add active class to clicked button
+                    button.classList.add('active');
+                    
+                    const filterValue = button.getAttribute('data-filter');
+                    
+                    projectCards.forEach(card => {
+                        if (filterValue === 'all') {
+                            card.style.display = 'flex';
+                        } else {
+                            const categories = card.getAttribute('data-category').split(' ');
+                            if (categories.includes(filterValue)) {
+                                card.style.display = 'flex';
+                            } else {
+                                card.style.display = 'none';
+                            }
+                        }
+                    });
+                });
+            });
+        });
+        
+        // Modal Functionality
+        document.addEventListener('DOMContentLoaded', () => {
+            const viewDetailsButtons = document.querySelectorAll('.view-details');
+            const closeModalButtons = document.querySelectorAll('.close-modal');
+            const modals = document.querySelectorAll('.project-modal');
+            
+            // Open modal when view details button is clicked
+            viewDetailsButtons.forEach(button => {
+                button.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const projectId = button.getAttribute('data-project');
+                    const modal = document.getElementById(`modal-${projectId}`);
+                    if (modal) {
+                        modal.style.display = 'block';
+                        document.body.style.overflow = 'hidden';
+                    }
+                });
+            });
+            
+            // Close modal when close button is clicked
+            closeModalButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const modal = button.closest('.project-modal');
+                    modal.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                });
+            });
+            
+            // Close modal when clicking outside the modal content
+            modals.forEach(modal => {
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) {
+                        modal.style.display = 'none';
+                        document.body.style.overflow = 'auto';
+                    }
+                });
+            });
+            
+            // Close modal with Escape key
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    modals.forEach(modal => {
+                        modal.style.display = 'none';
+                        document.body.style.overflow = 'auto';
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
